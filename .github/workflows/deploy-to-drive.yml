@@ -1,0 +1,37 @@
+name: Build Google-Drive-CI-CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      google_drive:
+        description: 'Upload apk to google drive'
+        required: false
+        type: boolean
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build apk
+        uses: gradle/gradle-command-action@v2
+        with:
+          arguments: :app:assembleProductionRelease
+      - name: Upload apk to google drive
+        uses: logickoder/google-drive-upload@test
+         
