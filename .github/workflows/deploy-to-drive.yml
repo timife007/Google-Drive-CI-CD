@@ -1,12 +1,15 @@
 name: Build Google-Drive-CI-CD
 
 on:
-  workflow_dispatch:
-    inputs:
-      google_drive:
-        description: 'Upload apk to google drive'
-        required: false
-        type: boolean
+  push:
+    branches:
+      - master
+#  workflow_dispatch:
+#    inputs:
+#      google_drive:
+#        description: 'Upload apk to google drive'
+#        required: false
+#        type: boolean
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
