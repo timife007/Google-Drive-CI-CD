@@ -3,7 +3,7 @@ name: Build Google-Drive-CI-CD
 on:
   push:
     branches:
-      - master
+      - main
 #  workflow_dispatch:
 #    inputs:
 #      google_drive:
